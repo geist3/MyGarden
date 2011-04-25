@@ -18331,3 +18331,13 @@ Rendering template within layouts/application
 Rendering plants/index
   [4;35;1mPlant Columns (1.6ms)[0m   [0mSHOW FIELDS FROM `plants`[0m
 Completed in 53ms (View: 39, DB: 0) | 200 OK [http://127.0.0.1/plants]
+
+
+Processing PlantsController#index (for 127.0.0.1 at 2011-04-25 18:16:26) [GET]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mPlant Load (0.2ms)[0m   [0;1mSELECT * FROM `plants` ORDER BY name[0m
+Rendering template within layouts/application
+Rendering plants/index
+  [4;35;1mPlant Columns (1.3ms)[0m   [0mSHOW FIELDS FROM `plants`[0m
+Completed in 43ms (View: 29, DB: 0) | 200 OK [http://127.0.0.1/plants]
