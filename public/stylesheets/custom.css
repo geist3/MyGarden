@@ -8,14 +8,18 @@ padding:0px;
 border:0px;
 }
 
+textarea {
+height: 150px;
+width:400px;
+}
+
+#header {
+padding-bottom:10px;
+}
+
 #container {
 width:800px;
 margin:auto;
 background-color:#FFFFFF;
 padding:5px;
-}
-
-textarea {
-height: 150px;
-width:400px;
 }

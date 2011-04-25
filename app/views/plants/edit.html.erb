@@ -1,4 +1,4 @@
-<h1>Editing plant</h1>
+<h1><%= @plant.name %></h1>
 
 <% form_for(@plant) do |f| %>
   <%= f.error_messages %>
@@ -21,3 +21,20 @@
 <% end %>
 <br />
 <%= link_to 'Cancel', plants_path %>
+<br />
+<br />
+<h2>Log Entries for <%= @plant.name %></h2>
+<% for logentry in @plant.logentries %>
+  <tr>
+    <td><%=h logentry.logdate %></td>
+    <td><%=h logentry.notes %></td>
+    <td><%= link_to 'Edit', edit_logentry_path(logentry) %></td>
+    <td><%= link_to 'Delete', logentry, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<p>
+	<br />
+	<%= link_to 'Create New Log Entry', new_plant_logentry_path(@plant) %> 
+</p>
