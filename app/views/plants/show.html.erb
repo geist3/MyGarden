@@ -9,6 +9,7 @@
 </p>
 
 <%= link_to 'Edit', edit_plant_path(@plant) %> 
+<%= link_to 'Delete', @plant, :confirm => 'Are you sure?', :method => :delete %>
 
 <h1>Log Entries</h1>
 
