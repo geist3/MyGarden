@@ -16,7 +16,7 @@
 			<p style="color: green"><%= flash[:notice] %></p>
 			<div id="content">
 				<%= yield %>
-				<%= debug params %>
+				<%= debug(params) if Rails.env.development? %> 
 			</div>
 		</div>
 	</body>

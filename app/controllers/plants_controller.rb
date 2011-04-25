@@ -29,7 +29,7 @@ class PlantsController < ApplicationController
 
       if @plant.save
         flash[:notice] = 'Plant was successfully created.'
-        redirect_to(@plant)
+        redirect_to(:action => 'index')
       else
         render :action => "new"
       end
