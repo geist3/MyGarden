@@ -5,7 +5,7 @@
 
 <p>
   <b>Notes:</b>
-  <%=h @plant.notes %>
+  <%= simple_format(@plant.notes) %>
 </p>
 
 <%= link_to 'Edit', edit_plant_path(@plant) %> 

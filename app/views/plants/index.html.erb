@@ -8,8 +8,8 @@
 
 <% for plant in @plants %>
   <tr>
-    <td><%= link_to plant.name, plant %></td>
-    <td><%=h plant.notes %></td>
+    <td><%= link_to plant.name, edit_plant_path(plant) %></td>
+    <td><%= simple_format(plant.notes) %></td>
   </tr>
 <% end %>
 </table>
@@ -32,7 +32,7 @@
   </p>
   <p>
     <%= f.label :notes %><br />
-    <%= f.text_field :notes %>
+    <%= f.text_area :notes %>
   </p>
   <p>
     <%= f.submit "Create" %>

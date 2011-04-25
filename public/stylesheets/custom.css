@@ -8,3 +8,8 @@ margin:auto;
 background-color:#FFFFFF;
 padding:5px;
 }
+
+textarea {
+height: 150px;
+width:400px;
+}

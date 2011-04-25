@@ -42,7 +42,7 @@ class PlantsController < ApplicationController
 
       if @plant.update_attributes(params[:plant])
         flash[:notice] = 'Plant was successfully updated.'
-        redirect_to(@plant)
+        redirect_to(:action => 'index')
       else
         render :action => "edit"
       end

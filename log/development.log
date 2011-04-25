@@ -17848,3 +17848,486 @@ Rendering template within layouts/application
 Rendering plants/index
   [4;35;1mPlant Columns (1.5ms)[0m   [0mSHOW FIELDS FROM `plants`[0m
 Completed in 42ms (View: 28, DB: 1) | 200 OK [http://127.0.0.1/plants]
+
+
+Processing PlantsController#index (for 127.0.0.1 at 2011-04-25 17:51:47) [GET]
+  [4;36;1mSQL (0.2ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mPlant Load (0.5ms)[0m   [0;1mSELECT * FROM `plants` ORDER BY name[0m
+Rendering template within layouts/application
+Rendering plants/index
+  [4;35;1mPlant Columns (1.4ms)[0m   [0mSHOW FIELDS FROM `plants`[0m
+
+
+ActionView::TemplateError (undefined method `textarea_field' for #<ActionView::Helpers::FormBuilder:0xb5f912ac>) on line #35 of app/views/plants/index.html.erb:
+32:   </p>
+33:   <p>
+34:     <%= f.label :notes %><br />
+35:     <%= f.textarea_field :notes %>
+36:   </p>
+37:   <p>
+38:     <%= f.submit "Create" %>
+
+    app/views/plants/index.html.erb:35
+    vendor/rails/actionpack/lib/action_view/helpers/form_helper.rb:313:in `fields_for'
+    vendor/rails/actionpack/lib/action_view/helpers/form_helper.rb:253:in `form_for'
+    app/views/plants/index.html.erb:22
+    vendor/rails/actionpack/lib/action_view/renderable.rb:39:in `send'
+    vendor/rails/actionpack/lib/action_view/renderable.rb:39:in `render'
+    vendor/rails/actionpack/lib/action_view/template.rb:73:in `render_template'
+    vendor/rails/actionpack/lib/action_view/base.rb:256:in `render'
+    vendor/rails/actionpack/lib/action_view/base.rb:369:in `_render_with_layout'
+    vendor/rails/actionpack/lib/action_view/base.rb:254:in `render'
+    vendor/rails/actionpack/lib/action_controller/base.rb:1177:in `render_for_file'
+    vendor/rails/actionpack/lib/action_controller/base.rb:896:in `render_without_benchmark'
+    vendor/rails/actionpack/lib/action_controller/benchmarking.rb:51:in `render'
+    vendor/rails/activesupport/lib/active_support/core_ext/benchmark.rb:8:in `realtime'
+    vendor/rails/actionpack/lib/action_controller/benchmarking.rb:51:in `render'
+    vendor/rails/actionpack/lib/action_controller/base.rb:868:in `render_without_benchmark'
+    vendor/rails/actionpack/lib/action_controller/benchmarking.rb:51:in `render'
+    vendor/rails/activesupport/lib/active_support/core_ext/benchmark.rb:8:in `realtime'
+    vendor/rails/actionpack/lib/action_controller/benchmarking.rb:51:in `render'
+    vendor/rails/actionpack/lib/action_controller/base.rb:1251:in `default_render'
+    vendor/rails/actionpack/lib/action_controller/base.rb:1257:in `perform_action_without_filters'
+    vendor/rails/actionpack/lib/action_controller/filters.rb:617:in `call_filters'
+    vendor/rails/actionpack/lib/action_controller/filters.rb:610:in `perform_action_without_benchmark'
+    vendor/rails/actionpack/lib/action_controller/benchmarking.rb:68:in `perform_action_without_rescue'
+    /usr/lib/ruby/1.8/benchmark.rb:293:in `measure'
+    vendor/rails/actionpack/lib/action_controller/benchmarking.rb:68:in `perform_action_without_rescue'
+    vendor/rails/actionpack/lib/action_controller/rescue.rb:136:in `perform_action_without_caching'
+    vendor/rails/actionpack/lib/action_controller/caching/sql_cache.rb:13:in `perform_action'
+    vendor/rails/activerecord/lib/active_record/connection_adapters/abstract/query_cache.rb:34:in `cache'
+    vendor/rails/activerecord/lib/active_record/query_cache.rb:8:in `cache'
+    vendor/rails/actionpack/lib/action_controller/caching/sql_cache.rb:12:in `perform_action'
+    vendor/rails/actionpack/lib/action_controller/base.rb:524:in `send'
+    vendor/rails/actionpack/lib/action_controller/base.rb:524:in `process_without_filters'
+    vendor/rails/actionpack/lib/action_controller/filters.rb:606:in `process_without_session_management_support'
+    vendor/rails/actionpack/lib/action_controller/session_management.rb:134:in `process'
+    vendor/rails/actionpack/lib/action_controller/base.rb:392:in `process'
+    vendor/rails/actionpack/lib/action_controller/dispatcher.rb:184:in `handle_request'
+    vendor/rails/actionpack/lib/action_controller/dispatcher.rb:112:in `dispatch_unlocked'
+    vendor/rails/actionpack/lib/action_controller/dispatcher.rb:125:in `dispatch'
+    vendor/rails/actionpack/lib/action_controller/dispatcher.rb:124:in `synchronize'
+    vendor/rails/actionpack/lib/action_controller/dispatcher.rb:124:in `dispatch'
+    vendor/rails/actionpack/lib/action_controller/dispatcher.rb:134:in `dispatch_cgi'
+    vendor/rails/actionpack/lib/action_controller/dispatcher.rb:41:in `dispatch'
+    /var/lib/gems/1.8/gems/mongrel-1.1.5/lib/mongrel/rails.rb:76:in `process'
+    /var/lib/gems/1.8/gems/mongrel-1.1.5/lib/mongrel/rails.rb:74:in `synchronize'
+    /var/lib/gems/1.8/gems/mongrel-1.1.5/lib/mongrel/rails.rb:74:in `process'
+    /var/lib/gems/1.8/gems/mongrel-1.1.5/lib/mongrel.rb:159:in `process_client'
+    /var/lib/gems/1.8/gems/mongrel-1.1.5/lib/mongrel.rb:158:in `each'
+    /var/lib/gems/1.8/gems/mongrel-1.1.5/lib/mongrel.rb:158:in `process_client'
+    /var/lib/gems/1.8/gems/mongrel-1.1.5/lib/mongrel.rb:285:in `run'
+    /var/lib/gems/1.8/gems/mongrel-1.1.5/lib/mongrel.rb:285:in `initialize'
+    /var/lib/gems/1.8/gems/mongrel-1.1.5/lib/mongrel.rb:285:in `new'
+    /var/lib/gems/1.8/gems/mongrel-1.1.5/lib/mongrel.rb:285:in `run'
+    /var/lib/gems/1.8/gems/mongrel-1.1.5/lib/mongrel.rb:268:in `initialize'
+    /var/lib/gems/1.8/gems/mongrel-1.1.5/lib/mongrel.rb:268:in `new'
+    /var/lib/gems/1.8/gems/mongrel-1.1.5/lib/mongrel.rb:268:in `run'
+    /var/lib/gems/1.8/gems/mongrel-1.1.5/lib/mongrel/configurator.rb:282:in `run'
+    /var/lib/gems/1.8/gems/mongrel-1.1.5/lib/mongrel/configurator.rb:281:in `each'
+    /var/lib/gems/1.8/gems/mongrel-1.1.5/lib/mongrel/configurator.rb:281:in `run'
+    /var/lib/gems/1.8/gems/mongrel-1.1.5/bin/mongrel_rails:128:in `run'
+    /var/lib/gems/1.8/gems/mongrel-1.1.5/lib/mongrel/command.rb:212:in `run'
+    /var/lib/gems/1.8/gems/mongrel-1.1.5/bin/mongrel_rails:281
+    vendor/rails/activesupport/lib/active_support/dependencies.rb:142:in `load_without_new_constant_marking'
+    vendor/rails/activesupport/lib/active_support/dependencies.rb:142:in `load'
+    vendor/rails/activesupport/lib/active_support/dependencies.rb:521:in `new_constants_in'
+    vendor/rails/activesupport/lib/active_support/dependencies.rb:142:in `load'
+    vendor/rails/railties/lib/commands/servers/mongrel.rb:64
+    /usr/lib/ruby/1.8/rubygems/custom_require.rb:31:in `gem_original_require'
+    /usr/lib/ruby/1.8/rubygems/custom_require.rb:31:in `require'
+    vendor/rails/activesupport/lib/active_support/dependencies.rb:153:in `require'
+    vendor/rails/activesupport/lib/active_support/dependencies.rb:521:in `new_constants_in'
+    vendor/rails/activesupport/lib/active_support/dependencies.rb:153:in `require'
+    vendor/rails/railties/lib/commands/server.rb:49
+    /usr/lib/ruby/1.8/rubygems/custom_require.rb:31:in `gem_original_require'
+    /usr/lib/ruby/1.8/rubygems/custom_require.rb:31:in `require'
+    script/server:3
+
+Rendered /home/john/workspace35/ruby/gardening/vendor/rails/actionpack/lib/action_controller/templates/rescues/_trace (37.1ms)
+Rendered /home/john/workspace35/ruby/gardening/vendor/rails/actionpack/lib/action_controller/templates/rescues/_request_and_response (0.9ms)
+Rendering /home/john/workspace35/ruby/gardening/vendor/rails/actionpack/lib/action_controller/templates/rescues/layout.erb (internal_server_error)
+
+
+Processing PlantsController#index (for 127.0.0.1 at 2011-04-25 17:51:51) [GET]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mPlant Load (0.2ms)[0m   [0;1mSELECT * FROM `plants` ORDER BY name[0m
+Rendering template within layouts/application
+Rendering plants/index
+  [4;35;1mPlant Columns (1.4ms)[0m   [0mSHOW FIELDS FROM `plants`[0m
+
+
+ActionView::TemplateError (undefined method `text_area_field' for #<ActionView::Helpers::FormBuilder:0xb612f62c>) on line #35 of app/views/plants/index.html.erb:
+32:   </p>
+33:   <p>
+34:     <%= f.label :notes %><br />
+35:     <%= f.text_area_field :notes %>
+36:   </p>
+37:   <p>
+38:     <%= f.submit "Create" %>
+
+    app/views/plants/index.html.erb:35
+    vendor/rails/actionpack/lib/action_view/helpers/form_helper.rb:313:in `fields_for'
+    vendor/rails/actionpack/lib/action_view/helpers/form_helper.rb:253:in `form_for'
+    app/views/plants/index.html.erb:22
+    vendor/rails/actionpack/lib/action_view/renderable.rb:39:in `send'
+    vendor/rails/actionpack/lib/action_view/renderable.rb:39:in `render'
+    vendor/rails/actionpack/lib/action_view/template.rb:73:in `render_template'
+    vendor/rails/actionpack/lib/action_view/base.rb:256:in `render'
+    vendor/rails/actionpack/lib/action_view/base.rb:369:in `_render_with_layout'
+    vendor/rails/actionpack/lib/action_view/base.rb:254:in `render'
+    vendor/rails/actionpack/lib/action_controller/base.rb:1177:in `render_for_file'
+    vendor/rails/actionpack/lib/action_controller/base.rb:896:in `render_without_benchmark'
+    vendor/rails/actionpack/lib/action_controller/benchmarking.rb:51:in `render'
+    vendor/rails/activesupport/lib/active_support/core_ext/benchmark.rb:8:in `realtime'
+    vendor/rails/actionpack/lib/action_controller/benchmarking.rb:51:in `render'
+    vendor/rails/actionpack/lib/action_controller/base.rb:868:in `render_without_benchmark'
+    vendor/rails/actionpack/lib/action_controller/benchmarking.rb:51:in `render'
+    vendor/rails/activesupport/lib/active_support/core_ext/benchmark.rb:8:in `realtime'
+    vendor/rails/actionpack/lib/action_controller/benchmarking.rb:51:in `render'
+    vendor/rails/actionpack/lib/action_controller/base.rb:1251:in `default_render'
+    vendor/rails/actionpack/lib/action_controller/base.rb:1257:in `perform_action_without_filters'
+    vendor/rails/actionpack/lib/action_controller/filters.rb:617:in `call_filters'
+    vendor/rails/actionpack/lib/action_controller/filters.rb:610:in `perform_action_without_benchmark'
+    vendor/rails/actionpack/lib/action_controller/benchmarking.rb:68:in `perform_action_without_rescue'
+    /usr/lib/ruby/1.8/benchmark.rb:293:in `measure'
+    vendor/rails/actionpack/lib/action_controller/benchmarking.rb:68:in `perform_action_without_rescue'
+    vendor/rails/actionpack/lib/action_controller/rescue.rb:136:in `perform_action_without_caching'
+    vendor/rails/actionpack/lib/action_controller/caching/sql_cache.rb:13:in `perform_action'
+    vendor/rails/activerecord/lib/active_record/connection_adapters/abstract/query_cache.rb:34:in `cache'
+    vendor/rails/activerecord/lib/active_record/query_cache.rb:8:in `cache'
+    vendor/rails/actionpack/lib/action_controller/caching/sql_cache.rb:12:in `perform_action'
+    vendor/rails/actionpack/lib/action_controller/base.rb:524:in `send'
+    vendor/rails/actionpack/lib/action_controller/base.rb:524:in `process_without_filters'
+    vendor/rails/actionpack/lib/action_controller/filters.rb:606:in `process_without_session_management_support'
+    vendor/rails/actionpack/lib/action_controller/session_management.rb:134:in `process'
+    vendor/rails/actionpack/lib/action_controller/base.rb:392:in `process'
+    vendor/rails/actionpack/lib/action_controller/dispatcher.rb:184:in `handle_request'
+    vendor/rails/actionpack/lib/action_controller/dispatcher.rb:112:in `dispatch_unlocked'
+    vendor/rails/actionpack/lib/action_controller/dispatcher.rb:125:in `dispatch'
+    vendor/rails/actionpack/lib/action_controller/dispatcher.rb:124:in `synchronize'
+    vendor/rails/actionpack/lib/action_controller/dispatcher.rb:124:in `dispatch'
+    vendor/rails/actionpack/lib/action_controller/dispatcher.rb:134:in `dispatch_cgi'
+    vendor/rails/actionpack/lib/action_controller/dispatcher.rb:41:in `dispatch'
+    /var/lib/gems/1.8/gems/mongrel-1.1.5/lib/mongrel/rails.rb:76:in `process'
+    /var/lib/gems/1.8/gems/mongrel-1.1.5/lib/mongrel/rails.rb:74:in `synchronize'
+    /var/lib/gems/1.8/gems/mongrel-1.1.5/lib/mongrel/rails.rb:74:in `process'
+    /var/lib/gems/1.8/gems/mongrel-1.1.5/lib/mongrel.rb:159:in `process_client'
+    /var/lib/gems/1.8/gems/mongrel-1.1.5/lib/mongrel.rb:158:in `each'
+    /var/lib/gems/1.8/gems/mongrel-1.1.5/lib/mongrel.rb:158:in `process_client'
+    /var/lib/gems/1.8/gems/mongrel-1.1.5/lib/mongrel.rb:285:in `run'
+    /var/lib/gems/1.8/gems/mongrel-1.1.5/lib/mongrel.rb:285:in `initialize'
+    /var/lib/gems/1.8/gems/mongrel-1.1.5/lib/mongrel.rb:285:in `new'
+    /var/lib/gems/1.8/gems/mongrel-1.1.5/lib/mongrel.rb:285:in `run'
+    /var/lib/gems/1.8/gems/mongrel-1.1.5/lib/mongrel.rb:268:in `initialize'
+    /var/lib/gems/1.8/gems/mongrel-1.1.5/lib/mongrel.rb:268:in `new'
+    /var/lib/gems/1.8/gems/mongrel-1.1.5/lib/mongrel.rb:268:in `run'
+    /var/lib/gems/1.8/gems/mongrel-1.1.5/lib/mongrel/configurator.rb:282:in `run'
+    /var/lib/gems/1.8/gems/mongrel-1.1.5/lib/mongrel/configurator.rb:281:in `each'
+    /var/lib/gems/1.8/gems/mongrel-1.1.5/lib/mongrel/configurator.rb:281:in `run'
+    /var/lib/gems/1.8/gems/mongrel-1.1.5/bin/mongrel_rails:128:in `run'
+    /var/lib/gems/1.8/gems/mongrel-1.1.5/lib/mongrel/command.rb:212:in `run'
+    /var/lib/gems/1.8/gems/mongrel-1.1.5/bin/mongrel_rails:281
+    vendor/rails/activesupport/lib/active_support/dependencies.rb:142:in `load_without_new_constant_marking'
+    vendor/rails/activesupport/lib/active_support/dependencies.rb:142:in `load'
+    vendor/rails/activesupport/lib/active_support/dependencies.rb:521:in `new_constants_in'
+    vendor/rails/activesupport/lib/active_support/dependencies.rb:142:in `load'
+    vendor/rails/railties/lib/commands/servers/mongrel.rb:64
+    /usr/lib/ruby/1.8/rubygems/custom_require.rb:31:in `gem_original_require'
+    /usr/lib/ruby/1.8/rubygems/custom_require.rb:31:in `require'
+    vendor/rails/activesupport/lib/active_support/dependencies.rb:153:in `require'
+    vendor/rails/activesupport/lib/active_support/dependencies.rb:521:in `new_constants_in'
+    vendor/rails/activesupport/lib/active_support/dependencies.rb:153:in `require'
+    vendor/rails/railties/lib/commands/server.rb:49
+    /usr/lib/ruby/1.8/rubygems/custom_require.rb:31:in `gem_original_require'
+    /usr/lib/ruby/1.8/rubygems/custom_require.rb:31:in `require'
+    script/server:3
+
+Rendered /home/john/workspace35/ruby/gardening/vendor/rails/actionpack/lib/action_controller/templates/rescues/_trace (34.6ms)
+Rendered /home/john/workspace35/ruby/gardening/vendor/rails/actionpack/lib/action_controller/templates/rescues/_request_and_response (0.9ms)
+Rendering /home/john/workspace35/ruby/gardening/vendor/rails/actionpack/lib/action_controller/templates/rescues/layout.erb (internal_server_error)
+
+
+Processing PlantsController#index (for 127.0.0.1 at 2011-04-25 17:51:56) [GET]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mPlant Load (0.1ms)[0m   [0;1mSELECT * FROM `plants` ORDER BY name[0m
+Rendering template within layouts/application
+Rendering plants/index
+  [4;35;1mPlant Columns (0.7ms)[0m   [0mSHOW FIELDS FROM `plants`[0m
+Completed in 147ms (View: 13, DB: 0) | 200 OK [http://127.0.0.1/plants]
+
+
+Processing PlantsController#index (for 127.0.0.1 at 2011-04-25 17:52:36) [GET]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mPlant Load (0.2ms)[0m   [0;1mSELECT * FROM `plants` ORDER BY name[0m
+Rendering template within layouts/application
+Rendering plants/index
+  [4;35;1mPlant Columns (1.4ms)[0m   [0mSHOW FIELDS FROM `plants`[0m
+Completed in 43ms (View: 29, DB: 0) | 200 OK [http://127.0.0.1/plants]
+
+
+Processing PlantsController#index (for 127.0.0.1 at 2011-04-25 17:53:55) [GET]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mPlant Load (0.1ms)[0m   [0;1mSELECT * FROM `plants` ORDER BY name[0m
+Rendering template within layouts/application
+Rendering plants/index
+  [4;35;1mPlant Columns (0.7ms)[0m   [0mSHOW FIELDS FROM `plants`[0m
+Completed in 20ms (View: 13, DB: 0) | 200 OK [http://127.0.0.1/plants]
+
+
+Processing PlantsController#index (for 127.0.0.1 at 2011-04-25 17:54:04) [GET]
+  [4;36;1mSQL (0.2ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mPlant Load (0.2ms)[0m   [0;1mSELECT * FROM `plants` ORDER BY name[0m
+Rendering template within layouts/application
+Rendering plants/index
+  [4;35;1mPlant Columns (1.4ms)[0m   [0mSHOW FIELDS FROM `plants`[0m
+Completed in 40ms (View: 27, DB: 1) | 200 OK [http://127.0.0.1/plants]
+
+
+Processing PlantsController#index (for 127.0.0.1 at 2011-04-25 17:54:07) [GET]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mPlant Load (0.2ms)[0m   [0;1mSELECT * FROM `plants` ORDER BY name[0m
+Rendering template within layouts/application
+Rendering plants/index
+  [4;35;1mPlant Columns (1.8ms)[0m   [0mSHOW FIELDS FROM `plants`[0m
+Completed in 41ms (View: 27, DB: 0) | 200 OK [http://127.0.0.1/plants]
+
+
+Processing PlantsController#index (for 127.0.0.1 at 2011-04-25 17:54:14) [GET]
+  [4;36;1mSQL (0.2ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mPlant Load (0.2ms)[0m   [0;1mSELECT * FROM `plants` ORDER BY name[0m
+Rendering template within layouts/application
+Rendering plants/index
+  [4;35;1mPlant Columns (1.3ms)[0m   [0mSHOW FIELDS FROM `plants`[0m
+Completed in 40ms (View: 27, DB: 1) | 200 OK [http://127.0.0.1/plants]
+
+
+Processing PlantsController#create (for 127.0.0.1 at 2011-04-25 17:54:36) [POST]
+  Parameters: {"commit"=>"Create", "plant"=>{"name"=>"a", "notes"=>"fddf\r\ndf\r\ndf\r\ndf", "where"=>""}, "authenticity_token"=>"6a922a9dc090841569f4df344eb295e33444810d"}
+  [4;36;1mSQL (0.2ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mPlant Columns (1.4ms)[0m   [0;1mSHOW FIELDS FROM `plants`[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mBEGIN[0m
+  [4;36;1mPlant Create (0.6ms)[0m   [0;1mINSERT INTO `plants` (`name`, `created_at`, `notes`, `updated_at`, `where`) VALUES('a', '2011-04-25 16:54:36', 'fddf\r\ndf\r\ndf\r\ndf', '2011-04-25 16:54:36', '')[0m
+  [4;35;1mSQL (1.5ms)[0m   [0mCOMMIT[0m
+Redirected to actionindex
+Completed in 25ms (DB: 4) | 302 Found [http://127.0.0.1/plants]
+
+
+Processing PlantsController#index (for 127.0.0.1 at 2011-04-25 17:54:36) [GET]
+  [4;36;1mSQL (0.2ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.3ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mPlant Load (0.7ms)[0m   [0;1mSELECT * FROM `plants` ORDER BY name[0m
+Rendering template within layouts/application
+Rendering plants/index
+  [4;35;1mPlant Columns (1.4ms)[0m   [0mSHOW FIELDS FROM `plants`[0m
+Completed in 45ms (View: 30, DB: 1) | 200 OK [http://127.0.0.1/plants]
+
+
+Processing PlantsController#index (for 127.0.0.1 at 2011-04-25 17:58:04) [GET]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mPlant Load (0.1ms)[0m   [0;1mSELECT * FROM `plants` ORDER BY name[0m
+Rendering template within layouts/application
+Rendering plants/index
+  [4;35;1mPlant Columns (0.6ms)[0m   [0mSHOW FIELDS FROM `plants`[0m
+Completed in 20ms (View: 13, DB: 0) | 200 OK [http://127.0.0.1/plants]
+
+
+Processing PlantsController#index (for 127.0.0.1 at 2011-04-25 17:58:21) [GET]
+  [4;36;1mSQL (0.2ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mPlant Load (0.2ms)[0m   [0;1mSELECT * FROM `plants` ORDER BY name[0m
+Rendering template within layouts/application
+Rendering plants/index
+  [4;35;1mPlant Columns (1.9ms)[0m   [0mSHOW FIELDS FROM `plants`[0m
+Completed in 45ms (View: 30, DB: 0) | 200 OK [http://127.0.0.1/plants]
+
+
+Processing PlantsController#index (for 127.0.0.1 at 2011-04-25 17:58:26) [GET]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mPlant Load (0.5ms)[0m   [0;1mSELECT * FROM `plants` ORDER BY name[0m
+Rendering template within layouts/application
+Rendering plants/index
+  [4;35;1mPlant Columns (1.6ms)[0m   [0mSHOW FIELDS FROM `plants`[0m
+Completed in 42ms (View: 28, DB: 1) | 200 OK [http://127.0.0.1/plants]
+
+
+Processing PlantsController#show (for 127.0.0.1 at 2011-04-25 17:58:39) [GET]
+  Parameters: {"id"=>"7"}
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mPlant Columns (1.4ms)[0m   [0;1mSHOW FIELDS FROM `plants`[0m
+  [4;35;1mPlant Load (0.5ms)[0m   [0mSELECT * FROM `plants` WHERE (`plants`.`id` = 7) [0m
+Rendering template within layouts/application
+Rendering plants/show
+  [4;36;1mLogentry Load (0.6ms)[0m   [0;1mSELECT * FROM `logentries` WHERE (`logentries`.plant_id = 7) [0m
+Completed in 51ms (View: 34, DB: 2) | 200 OK [http://127.0.0.1/plants/7]
+
+
+Processing PlantsController#edit (for 127.0.0.1 at 2011-04-25 17:58:41) [GET]
+  Parameters: {"id"=>"7"}
+  [4;35;1mSQL (0.1ms)[0m   [0mSET NAMES 'utf8'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+  [4;35;1mPlant Columns (1.3ms)[0m   [0mSHOW FIELDS FROM `plants`[0m
+  [4;36;1mPlant Load (0.2ms)[0m   [0;1mSELECT * FROM `plants` WHERE (`plants`.`id` = 7) [0m
+Rendering template within layouts/application
+Rendering plants/edit
+Completed in 39ms (View: 23, DB: 2) | 200 OK [http://127.0.0.1/plants/7/edit]
+
+
+Processing PlantsController#edit (for 127.0.0.1 at 2011-04-25 17:59:20) [GET]
+  Parameters: {"id"=>"7"}
+  [4;35;1mSQL (0.2ms)[0m   [0mSET NAMES 'utf8'[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+  [4;35;1mPlant Columns (1.3ms)[0m   [0mSHOW FIELDS FROM `plants`[0m
+  [4;36;1mPlant Load (0.3ms)[0m   [0;1mSELECT * FROM `plants` WHERE (`plants`.`id` = 7) [0m
+Rendering template within layouts/application
+Rendering plants/edit
+Completed in 40ms (View: 24, DB: 2) | 200 OK [http://127.0.0.1/plants/7/edit]
+
+
+Processing PlantsController#update (for 127.0.0.1 at 2011-04-25 17:59:23) [PUT]
+  Parameters: {"commit"=>"Update", "plant"=>{"name"=>"a", "notes"=>"fddf\r\ndf\r\ndf\r\ndfa", "where"=>""}, "authenticity_token"=>"6a922a9dc090841569f4df344eb295e33444810d", "id"=>"7"}
+  [4;35;1mSQL (0.1ms)[0m   [0mSET NAMES 'utf8'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+  [4;35;1mPlant Columns (1.3ms)[0m   [0mSHOW FIELDS FROM `plants`[0m
+  [4;36;1mPlant Load (0.2ms)[0m   [0;1mSELECT * FROM `plants` WHERE (`plants`.`id` = 7) [0m
+  [4;35;1mSQL (0.2ms)[0m   [0mBEGIN[0m
+  [4;36;1mPlant Update (0.6ms)[0m   [0;1mUPDATE `plants` SET `updated_at` = '2011-04-25 16:59:23', `notes` = 'fddf\r\ndf\r\ndf\r\ndfa' WHERE `id` = 7[0m
+  [4;35;1mSQL (3.0ms)[0m   [0mCOMMIT[0m
+Redirected to #<Plant:0xb5f31028>
+Completed in 30ms (DB: 5) | 302 Found [http://127.0.0.1/plants/7]
+
+
+Processing PlantsController#show (for 127.0.0.1 at 2011-04-25 17:59:23) [GET]
+  Parameters: {"id"=>"7"}
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mPlant Columns (0.7ms)[0m   [0;1mSHOW FIELDS FROM `plants`[0m
+  [4;35;1mPlant Load (0.2ms)[0m   [0mSELECT * FROM `plants` WHERE (`plants`.`id` = 7) [0m
+Rendering template within layouts/application
+Rendering plants/show
+  [4;36;1mLogentry Load (0.1ms)[0m   [0;1mSELECT * FROM `logentries` WHERE (`logentries`.plant_id = 7) [0m
+Completed in 25ms (View: 16, DB: 1) | 200 OK [http://127.0.0.1/plants/7]
+
+
+Processing PlantsController#show (for 127.0.0.1 at 2011-04-25 17:59:38) [GET]
+  Parameters: {"id"=>"7"}
+  [4;35;1mSQL (0.1ms)[0m   [0mSET NAMES 'utf8'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+  [4;35;1mPlant Columns (1.4ms)[0m   [0mSHOW FIELDS FROM `plants`[0m
+  [4;36;1mPlant Load (0.2ms)[0m   [0;1mSELECT * FROM `plants` WHERE (`plants`.`id` = 7) [0m
+Rendering template within layouts/application
+Rendering plants/show
+  [4;35;1mLogentry Load (0.2ms)[0m   [0mSELECT * FROM `logentries` WHERE (`logentries`.plant_id = 7) [0m
+Completed in 49ms (View: 33, DB: 2) | 200 OK [http://127.0.0.1/plants/7]
+
+
+Processing LogentriesController#new (for 127.0.0.1 at 2011-04-25 17:59:46) [GET]
+  Parameters: {"plant_id"=>"7"}
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mPlant Columns (1.4ms)[0m   [0;1mSHOW FIELDS FROM `plants`[0m
+  [4;35;1mPlant Load (0.2ms)[0m   [0mSELECT * FROM `plants` WHERE (`plants`.`id` = 7) [0m
+  [4;36;1mLogentry Columns (1.7ms)[0m   [0;1mSHOW FIELDS FROM `logentries`[0m
+Rendering template within layouts/application
+Rendering logentries/new
+Completed in 66ms (View: 36, DB: 4) | 200 OK [http://127.0.0.1/plants/7/logentries/new]
+
+
+Processing PlantsController#index (for 127.0.0.1 at 2011-04-25 18:10:38) [GET]
+  [4;35;1mSQL (0.2ms)[0m   [0mSET NAMES 'utf8'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+  [4;35;1mPlant Load (0.7ms)[0m   [0mSELECT * FROM `plants` ORDER BY name[0m
+Rendering template within layouts/application
+Rendering plants/index
+  [4;36;1mPlant Columns (1.3ms)[0m   [0;1mSHOW FIELDS FROM `plants`[0m
+Completed in 41ms (View: 27, DB: 1) | 200 OK [http://127.0.0.1/plants]
+
+
+Processing PlantsController#edit (for 127.0.0.1 at 2011-04-25 18:10:40) [GET]
+  Parameters: {"id"=>"4"}
+  [4;35;1mSQL (0.2ms)[0m   [0mSET NAMES 'utf8'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+  [4;35;1mPlant Columns (1.4ms)[0m   [0mSHOW FIELDS FROM `plants`[0m
+  [4;36;1mPlant Load (0.5ms)[0m   [0;1mSELECT * FROM `plants` WHERE (`plants`.`id` = 4) [0m
+Rendering template within layouts/application
+Rendering plants/edit
+Completed in 31ms (View: 15, DB: 2) | 200 OK [http://127.0.0.1/plants/4/edit]
+
+
+Processing PlantsController#update (for 127.0.0.1 at 2011-04-25 18:10:44) [PUT]
+  Parameters: {"commit"=>"Update", "plant"=>{"name"=>"anew", "notes"=>"", "where"=>""}, "authenticity_token"=>"6a922a9dc090841569f4df344eb295e33444810d", "id"=>"4"}
+  [4;35;1mSQL (0.1ms)[0m   [0mSET NAMES 'utf8'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+  [4;35;1mPlant Columns (2.3ms)[0m   [0mSHOW FIELDS FROM `plants`[0m
+  [4;36;1mPlant Load (0.2ms)[0m   [0;1mSELECT * FROM `plants` WHERE (`plants`.`id` = 4) [0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mCOMMIT[0m
+Redirected to #<Plant:0xb5f79850>
+Completed in 24ms (DB: 3) | 302 Found [http://127.0.0.1/plants/4]
+
+
+Processing PlantsController#show (for 127.0.0.1 at 2011-04-25 18:10:44) [GET]
+  Parameters: {"id"=>"4"}
+  [4;35;1mSQL (0.1ms)[0m   [0mSET NAMES 'utf8'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+  [4;35;1mPlant Columns (1.8ms)[0m   [0mSHOW FIELDS FROM `plants`[0m
+  [4;36;1mPlant Load (0.2ms)[0m   [0;1mSELECT * FROM `plants` WHERE (`plants`.`id` = 4) [0m
+Rendering template within layouts/application
+Rendering plants/show
+  [4;35;1mLogentry Load (0.7ms)[0m   [0mSELECT * FROM `logentries` WHERE (`logentries`.plant_id = 4) [0m
+Completed in 52ms (View: 33, DB: 2) | 200 OK [http://127.0.0.1/plants/4]
+
+
+Processing PlantsController#index (for 127.0.0.1 at 2011-04-25 18:11:49) [GET]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mPlant Load (0.1ms)[0m   [0;1mSELECT * FROM `plants` ORDER BY name[0m
+Rendering template within layouts/application
+Rendering plants/index
+  [4;35;1mPlant Columns (0.7ms)[0m   [0mSHOW FIELDS FROM `plants`[0m
+Completed in 22ms (View: 14, DB: 0) | 200 OK [http://127.0.0.1/plants]
+
+
+Processing PlantsController#edit (for 127.0.0.1 at 2011-04-25 18:11:50) [GET]
+  Parameters: {"id"=>"7"}
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mPlant Columns (1.3ms)[0m   [0;1mSHOW FIELDS FROM `plants`[0m
+  [4;35;1mPlant Load (0.2ms)[0m   [0mSELECT * FROM `plants` WHERE (`plants`.`id` = 7) [0m
+Rendering template within layouts/application
+Rendering plants/edit
+Completed in 41ms (View: 24, DB: 2) | 200 OK [http://127.0.0.1/plants/7/edit]
+
+
+Processing PlantsController#update (for 127.0.0.1 at 2011-04-25 18:11:52) [PUT]
+  Parameters: {"commit"=>"Update", "plant"=>{"name"=>"a", "notes"=>"fddf\r\ndf\r\ndf\r\ndfa", "where"=>""}, "authenticity_token"=>"6a922a9dc090841569f4df344eb295e33444810d", "id"=>"7"}
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mPlant Columns (1.4ms)[0m   [0;1mSHOW FIELDS FROM `plants`[0m
+  [4;35;1mPlant Load (0.2ms)[0m   [0mSELECT * FROM `plants` WHERE (`plants`.`id` = 7) [0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mCOMMIT[0m
+Redirected to actionindex
+Completed in 24ms (DB: 2) | 302 Found [http://127.0.0.1/plants/7]
+
+
+Processing PlantsController#index (for 127.0.0.1 at 2011-04-25 18:11:52) [GET]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mPlant Load (0.2ms)[0m   [0;1mSELECT * FROM `plants` ORDER BY name[0m
+Rendering template within layouts/application
+Rendering plants/index
+  [4;35;1mPlant Columns (1.6ms)[0m   [0mSHOW FIELDS FROM `plants`[0m
+Completed in 53ms (View: 39, DB: 0) | 200 OK [http://127.0.0.1/plants]
