@@ -2,7 +2,7 @@ class PlantsController < ApplicationController
   # GET /plants
   # GET /plants.xml
   def index
-    @plants = Plant.find(:all)
+    @plants = Plant.find(:all, :order=> 'name')
   end
 
   # GET /plants/1
