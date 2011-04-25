@@ -9,6 +9,7 @@ class PlantsController < ApplicationController
   # GET /plants/1.xml
   def show
     @plant = Plant.find(params[:id])
+    redirect_to :action => 'edit'
   end
 
   # GET /plants/new

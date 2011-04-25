@@ -41,10 +41,10 @@
 <table>
 <% for task in @plant.tasks %>
   <tr>
-    <td><%=h task.shortdescription %></td>
-    <td><%=h task.fromdate %></td>
-    <td><%=h task.todate %></td>
-    <td><%=h logentry.notes %></td>
+    <td><%=h task.short_description %></td>
+    <td><%=h task.from %></td>
+    <td><%=h task.to %></td>
+    <td><%=h task.notes %></td>
     <td><%= link_to 'Edit', edit_task_path(task) %></td>
     <td><%= link_to 'Delete', task, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
