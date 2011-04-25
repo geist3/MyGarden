@@ -24,6 +24,7 @@
 <br />
 <br />
 <h2>Log Entries for <%= @plant.name %></h2>
+<table>
 <% for logentry in @plant.logentries %>
   <tr>
     <td><%=h logentry.logdate %></td>
@@ -33,8 +34,23 @@
   </tr>
 <% end %>
 </table>
-
+<br />
+<%= link_to 'Create New Log Entry', new_plant_logentry_path(@plant) %> 
+<br />
+<h2>Task Dates for <%= @plant.name %></h2>
+<table>
+<% for task in @plant.tasks %>
+  <tr>
+    <td><%=h task.shortdescription %></td>
+    <td><%=h task.fromdate %></td>
+    <td><%=h task.todate %></td>
+    <td><%=h logentry.notes %></td>
+    <td><%= link_to 'Edit', edit_task_path(task) %></td>
+    <td><%= link_to 'Delete', task, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
 <p>
 	<br />
-	<%= link_to 'Create New Log Entry', new_plant_logentry_path(@plant) %> 
+	<%= link_to 'Create New Task', new_plant_task_path(@plant) %> 
 </p>

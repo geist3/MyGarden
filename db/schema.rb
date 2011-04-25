@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110425172221) do
+ActiveRecord::Schema.define(:version => 20110425211807) do
 
   create_table "logentries", :force => true do |t|
     t.string   "notes"
@@ -26,6 +26,16 @@ ActiveRecord::Schema.define(:version => 20110425172221) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "variety"
+  end
+
+  create_table "tasks", :force => true do |t|
+    t.string   "short_description"
+    t.date     "from"
+    t.date     "to"
+    t.string   "notes"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "plant_id"
   end
 
 end

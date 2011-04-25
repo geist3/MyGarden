@@ -1,9 +1,11 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :tasks, :only => [:destroy, :delete, :update, :show, :edit]
   map.resources :logentries, :only => [:destroy, :delete, :update, :show, :edit]
   #map.resources :plants, :has_many => [ :logentries ]
   #map.resources :plants
   map.resources :plants do |plants|
   	plants.resources :logentries, :only => [:create, :new, :index]
+  	plants.resources :tasks, :only => [:create, :new, :index]
   end
   
   map.root :controller => 'plants', :action => 'index'

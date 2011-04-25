@@ -1,0 +1,23 @@
+<p>
+  <b>Short description:</b>
+  <%=h @task.short_description %>
+</p>
+
+<p>
+  <b>From:</b>
+  <%=h @task.from %>
+</p>
+
+<p>
+  <b>To:</b>
+  <%=h @task.to %>
+</p>
+
+<p>
+  <b>Notes:</b>
+  <%=h @task.notes %>
+</p>
+
+
+<%= link_to 'Edit', edit_task_path(@task) %> |
+<%= link_to 'Back', tasks_path %>

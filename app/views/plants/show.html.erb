@@ -1,7 +1,4 @@
-<p>
-  <b>Name:</b>
-  <%=h @plant.name %>
-</p>
+<h1><%=h @plant.name %></h1>
 
 <p>
   <b>Notes:</b>
@@ -11,7 +8,7 @@
 <%= link_to 'Edit', edit_plant_path(@plant) %> 
 <%= link_to 'Delete', @plant, :confirm => 'Are you sure?', :method => :delete %>
 
-<h1>Log Entries</h1>
+<h2>Log Entries for <%= @plant.name %></h2>
 
 <table>
   <tr>
@@ -32,4 +29,26 @@
 <p>
 	<%= link_to 'Create Log Entry', new_plant_logentry_path(@plant) %> 
 </p>
+<h2>Tasks for <%= @plant.name %></h2>
+<table>
+  <tr>
+    <th>Short Desc</th>
+    <th>From</th>
+    <th>To</th>
+  </tr>
+<% for task in @plant.tasks %>
+  <tr>
+    <td><%=h task.short_description %></td>
+    <td><%=h task.from %></td>
+    <td><%=h task.to %></td>
+    <td><%= link_to 'Edit', edit_task_path(task) %></td>
+    <td><%= link_to 'Delete', task, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<p>
+	<%= link_to 'Create Task', new_plant_task_path(@plant) %> 
+</p>
+
 <%= link_to 'Back to plant list', plants_path %>
