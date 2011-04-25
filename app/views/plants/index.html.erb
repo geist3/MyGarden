@@ -16,4 +16,27 @@
 
 <br />
 
-<%= link_to 'New plant', new_plant_path %>
+<h1>New plant</h1>
+
+<% @plant = Plant.new %>
+<% form_for(@plant) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </p>
+  <p>
+    <%= f.label :where %><br />
+    <%= f.text_field :where %>
+  </p>
+  <p>
+    <%= f.label :notes %><br />
+    <%= f.text_field :notes %>
+  </p>
+  <p>
+    <%= f.submit "Create" %>
+  </p>
+<% end %>
+
+<% #= link_to 'New plant', new_plant_path %>

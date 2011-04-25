@@ -23,7 +23,7 @@
     <td><%=h logentry.notes %></td>
     <td><%=h logentry.logdate %></td>
     <td><%= link_to 'Edit', edit_logentry_path(logentry) %></td>
-    <td><%= link_to 'Destroy', logentry, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to 'Delete', logentry, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
 </table>
