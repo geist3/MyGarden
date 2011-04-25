@@ -1,0 +1,20 @@
+<h1>Editing logentry</h1>
+
+<% form_for(@logentry) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :notes %><br />
+    <%= f.text_field :notes %>
+  </p>
+  <p>
+    <%= f.label :logdate %><br />
+    <%= f.date_select :logdate %>
+  </p>
+  <p>
+    <%= f.submit "Update" %>
+  </p>
+<% end %>
+
+<%#= link_to 'Show', @logentry %> |
+<%#= link_to 'Back', logentries_path %>

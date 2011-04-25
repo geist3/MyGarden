@@ -1,0 +1,22 @@
+<h1>Listing logentries</h1>
+
+<table>
+  <tr>
+    <th>Notes</th>
+    <th>Logdate</th>
+  </tr>
+
+<% for logentry in @logentries %>
+  <tr>
+    <td><%=h logentry.notes %></td>
+    <td><%=h logentry.logdate %></td>
+    <td><%= link_to 'Show', logentry %></td>
+    <td><%= link_to 'Edit', edit_logentry_path(logentry) %></td>
+    <td><%= link_to 'Destroy', logentry, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New logentry', new_logentry_path %>

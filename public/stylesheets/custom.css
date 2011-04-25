@@ -1,0 +1,10 @@
+body{
+background-color:#CCCCCC;
+}
+
+#container {
+width:800px;
+margin:auto;
+background-color:#FFFFFF;
+padding:5px;
+}

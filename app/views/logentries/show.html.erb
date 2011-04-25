@@ -1,0 +1,14 @@
+<p>
+  <b>Notes:</b>
+  <%=h @logentry.notes %>
+</p>
+
+<p>
+  <b>Logdate:</b>
+  <%=h @logentry.logdate %>
+</p>
+
+
+<%#= link_to 'Edit', edit_logentry_path(@logentry) %> |
+<%= link_to 'Delete', destroy_logentry_path(@logentry) %> |
+<%#= link_to 'Back', logentries_path %>

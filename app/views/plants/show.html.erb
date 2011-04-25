@@ -1,0 +1,34 @@
+<p>
+  <b>Name:</b>
+  <%=h @plant.name %>
+</p>
+
+<p>
+  <b>Notes:</b>
+  <%=h @plant.notes %>
+</p>
+
+<%= link_to 'Edit', edit_plant_path(@plant) %> 
+
+<h1>Log Entries</h1>
+
+<table>
+  <tr>
+    <th>Notes</th>
+    <th>Logdate</th>
+  </tr>
+
+<% for logentry in @plant.logentries %>
+  <tr>
+    <td><%=h logentry.notes %></td>
+    <td><%=h logentry.logdate %></td>
+    <td><%= link_to 'Edit', edit_logentry_path(logentry) %></td>
+    <td><%= link_to 'Destroy', logentry, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<p>
+	<%= link_to 'Create Log Entry', new_plant_logentry_path(@plant) %> 
+</p>
+<%= link_to 'Back to plant list', plants_path %>
