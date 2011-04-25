@@ -3,12 +3,14 @@
 <table>
   <tr>
     <th>Name</th>
+    <th>Variety</th>
     <th>Notes</th>
   </tr>
 
 <% for plant in @plants %>
   <tr>
     <td><%= link_to plant.name, edit_plant_path(plant) %></td>
+    <td><%= plant.variety %></td>
     <td><%= simple_format(plant.notes) %></td>
   </tr>
 <% end %>
@@ -27,8 +29,8 @@
     <%= f.text_field :name %>
   </p>
   <p>
-    <%= f.label :where %><br />
-    <%= f.text_field :where %>
+    <%= f.label :variety %><br />
+    <%= f.text_field :variety %>
   </p>
   <p>
     <%= f.label :notes %><br />

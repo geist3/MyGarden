@@ -8,8 +8,8 @@
     <%= f.text_field :name %>
   </p>
   <p>
-    <%= f.label :where %><br />
-    <%= f.text_field :where %>
+    <%= f.label :variety %><br />
+    <%= f.text_field :variety %>
   </p>
   <p>
     <%= f.label :notes %><br />
@@ -19,6 +19,5 @@
     <%= f.submit "Update" %>
   </p>
 <% end %>
-
-<%= link_to 'Show', @plant %> |
-<%= link_to 'Back', plants_path %>
+<br />
+<%= link_to 'Cancel', plants_path %>
