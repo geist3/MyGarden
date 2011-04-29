@@ -3,13 +3,17 @@ class PlantsController < ApplicationController
   # GET /plants.xml
   def index
     @plants = Plant.find(:all, :order=> 'name')
+    if Garden.find(:all).count == 0
+    	Garden.create
+    end
+    @garden = Garden.find(:all)[0]
   end
 
   # GET /plants/1
   # GET /plants/1.xml
   def show
     @plant = Plant.find(params[:id])
-    redirect_to :action => 'edit'
+    render :action => "edit"
   end
 
   # GET /plants/new

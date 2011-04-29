@@ -1,0 +1,22 @@
+<h1>Listing annots</h1>
+
+<table>
+  <tr>
+    <th>Type</th>
+    <th>Props</th>
+  </tr>
+
+<% for annot in @annots %>
+  <tr>
+    <td><%=h annot.type %></td>
+    <td><%=h annot.props %></td>
+    <td><%= link_to 'Show', annot %></td>
+    <td><%= link_to 'Edit', edit_annot_path(annot) %></td>
+    <td><%= link_to 'Destroy', annot, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New annot', new_annot_path %>

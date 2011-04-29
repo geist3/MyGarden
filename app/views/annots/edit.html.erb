@@ -1,0 +1,20 @@
+<h1>Editing annot</h1>
+
+<% form_for(@annot) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :type %><br />
+    <%= f.text_field :type %>
+  </p>
+  <p>
+    <%= f.label :props %><br />
+    <%= f.text_field :props %>
+  </p>
+  <p>
+    <%= f.submit "Update" %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @annot %> |
+<%= link_to 'Back', annots_path %>

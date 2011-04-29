@@ -1,4 +1,8 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :gardens
+
+  map.resources :annots
+
   map.resources :tasks, :only => [:destroy, :delete, :update, :show, :edit]
   map.resources :logentries, :only => [:destroy, :delete, :update, :show, :edit]
   #map.resources :plants, :has_many => [ :logentries ]

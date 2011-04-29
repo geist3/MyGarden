@@ -1,0 +1,60 @@
+<% content_for :gardenHead do %>
+  <%= stylesheet_link_tag 'garden' %>
+  <%= stylesheet_link_tag 'jquery-ui-1.8.12.custom' %>
+  <%= javascript_include_tag 'modernizr-1.7.min' %>
+  <%= javascript_include_tag 'jquery-1.5.2' %>
+  <%= javascript_include_tag 'jquery-ui-1.8.12.custom.min' %>
+  <%= javascript_include_tag 'raphael' %>
+  <%= javascript_include_tag 'svg' %>
+<% end %>
+
+<h1>Editing garden</h1>
+
+<% form_for(@garden) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </p>
+  <p>
+    <%= f.submit "Update" %>
+  </p>
+<% end %>
+
+<div id="header"></div>
+	<table id="reviewTable" border="1">
+		<tr><th colspan="2">ReviewWindow</th></tr>
+		<tr><td id="toolsColumn">
+			<table>
+				<tr>
+					<td>Tools</td>
+					<td><div id="toolProperties"></div></td>
+				</tr>
+			</table>
+			
+		</td><td>PDF</td></tr>
+		<tr>
+			<td>
+				<div id="accordion">
+					<h3><a href="#">Tools</a></h3>
+					<div id="toolsCanvas"></div>
+					<h3><a href="#">Images</a></h3>
+					<div id="imagesCanvas"></div>
+					<h3><a href="#">Comments</a></h3>
+					<div id="comments">
+						<ul id="commentsList">
+						</ul>
+					</div>
+				</div>
+			</td>
+			<td id="reviewTableReviewWindowCell">
+				<div id="ReviewWindow" ></div>
+			</td>
+		</tr>
+		<tr><td colspan="2"><div id="debugspan"></div></td></tr>
+		<tr><td colspan="2">footer - <a id="clear" href="">Clear</a></td></tr>
+	</table>
+	<button id="saveButton" >save</button>
+<%= link_to 'Show', @garden %> |
+<%= link_to 'Back', gardens_path %>

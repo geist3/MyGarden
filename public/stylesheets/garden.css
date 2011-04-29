@@ -1,0 +1,42 @@
+body{
+	background-color:#AAAAAA;
+}
+#reviewTable{
+	width:100%;
+	background-color:#EEEEEE;
+}
+
+#toolsColumn{
+	width:100px;
+}
+
+#reviewTableReviewWindowCell{
+	background-color:#9999FF;
+}
+
+#ReviewWindow{
+	background-color:#FFFFFF;
+	margin-top:10px;
+	margin-bottom:10px;
+}
+
+#commentsList{
+	list-style-type: none; 
+	margin: 0; 
+	padding: 0; 
+	width: 90%; 
+}
+
+#commentsList li { 
+	margin: 0 3px 3px 3px; 
+	padding: 0.4em; 
+	padding-left: 1.5em; 
+	font-size: 1.4em; 
+	height: 18px; 
+}
+
+#commentsList li span { 
+	position: absolute; 
+	margin-left: -1.3em; 
+}
+
