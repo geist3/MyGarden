@@ -2,11 +2,8 @@ class PlantsController < ApplicationController
   # GET /plants
   # GET /plants.xml
   def index
-    @plants = Plant.find(:all, :order=> 'name')
-    if Garden.find(:all).count == 0
-    	Garden.create
-    end
     @garden = Garden.find(params[:garden_id])
+    @plants = @garden.plants(:order=> 'name')
   end
 
   # GET /plants/1
