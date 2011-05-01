@@ -9,19 +9,21 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110429191006) do
+ActiveRecord::Schema.define(:version => 20110501101854) do
 
   create_table "annots", :force => true do |t|
     t.string   "type"
     t.string   "props"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "shape"
   end
 
   create_table "gardens", :force => true do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "notes"
   end
 
   create_table "logentries", :force => true do |t|
@@ -39,6 +41,7 @@ ActiveRecord::Schema.define(:version => 20110429191006) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "variety"
+    t.integer  "garden_id"
   end
 
   create_table "tasks", :force => true do |t|

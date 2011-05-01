@@ -102,8 +102,25 @@ function startListening(){
           success: function(msg) {
             //alert( "Data gotten: " + msg );
             $(msg).find('annot').each(function(){
-				var type = $(this).find('props').text();
-				alert(type);
+				var props = $(this).find('props').text();
+				var shape = $(this).find('shape').text();
+				switch(shape){
+					case "circle":
+						var propArr =  props.split(",");
+						debugOut("drawing svg circle");
+						var rx = propArr[0].split(":")[1];
+						var ry = propArr[1].split(":")[1];
+						var cx = propArr[2].split(":")[1];
+						var cy = propArr[3].split(":")[1];
+						var fill = propArr[4].split(":")[1];
+						var opacity = propArr[5].split(":")[1];
+						tempShape = reviewWindow.ellipse(cx, cy, rx, ry);
+						tempShape.attr("fill", fill);
+						tempShape.attr("opacity", opacity);
+						annots[annots.length] = tempShape;
+						annotDetails[annotDetails.length] = "circle";
+				}
+				//alert(type);
 				//var title = $(this).find('title').text();
 			});
           }
@@ -111,16 +128,35 @@ function startListening(){
 }
 
 function saveData(){
-	$.ajax({
-          type: "POST",
-          url: '/annots.xml',
-          dataType: 'xml',
-          data: { _method:'POST', page : { props:"c" } },
-          dataType: 'xml',
-          success: function(msg) {
-            alert( "Data Saved: " + msg );
-          }
-	});
+	var data = "";
+	var i = 0;
+	switch(annotDetails[i]){
+		case "circle":
+			var annot = annots[i];
+			data = "rx:" + annot.attr('rx');
+			data += ",ry:" + annot.attr('ry');
+			data += ",cx:" + annot.attr('cx');
+			data += ",cy:" + annot.attr('cy');
+			data += ",fill:" + annot.attr('fill');
+			data += ",opacity:" + annot.attr('opacity');
+			break;
+	}
+	if(data.length > 0 ){
+		$.ajax({
+			  type: "POST",
+			  url: '/annots.xml',
+			  dataType: 'xml',
+			  data: { _method:'POST', annot : { shape: "circle", props: data } },
+			  dataType: 'xml',
+			  success: function(msg) {
+				alert( "Data Saved: " + msg );
+			  }
+		});
+	}
+	//string atts = "";
+	//for(j=0; j<annot[i].attr.count;j++){
+		//atts += annots[0].attr;
+	//}
 }
 
 //automagically add auth token

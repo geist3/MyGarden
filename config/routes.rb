@@ -12,7 +12,8 @@ ActionController::Routing::Routes.draw do |map|
   	plants.resources :tasks, :only => [:create, :new, :index]
   end
   
-  map.root :controller => 'plants', :action => 'index'
+  #map.root :controller => 'plants', :action => 'index'
+  map.root :controller => 'gardens', :action => 'index'
   # The priority is based upon order of creation: first created -> highest priority.
 
   # Sample of regular route:
