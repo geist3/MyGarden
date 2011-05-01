@@ -420,7 +420,6 @@ function updateAnnotList(){
 	
 	debugOut("loop through all annots");
 	for(i=0;i<annotDetails.length;i++) {
-   		//$("#commentsList").add(annotDetails[i]);
         $('<li value="' + i + '"><span>' + annotDetails[i] + '</span></li>').appendTo('#commentsList');
 	} 
 	

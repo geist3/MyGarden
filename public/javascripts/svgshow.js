@@ -2,9 +2,6 @@
 var viewWindow = null;
 var hasSVGSupport = false;
 
-var annots = new Array();
-var annotDetails = new Array();
-
 // when document ready
 $(document).ready(function() {
 	debugOut("jquery ready");
@@ -50,8 +47,23 @@ function loadAnnots(){
 						tempShape = reviewWindow.ellipse(cx, cy, rx, ry);
 						tempShape.attr("fill", fill);
 						tempShape.attr("opacity", opacity);
-						annots[annots.length] = tempShape;
-						annotDetails[annotDetails.length] = "circle";
+						break;
+					case "rect":
+						var propArr =  props.split(",");
+						debugOut("drawing svg rect");
+						var x = propArr[0].split(":")[1];
+						var y = propArr[1].split(":")[1];
+						var width = propArr[2].split(":")[1];
+						var height = propArr[3].split(":")[1];
+						var r = propArr[4].split(":")[1];
+						//var rx = propArr[5].split(":")[1];
+						//var ry = propArr[6].split(":")[1];
+						var fill = propArr[7].split(":")[1];
+						var opacity = propArr[8].split(":")[1];
+						tempShape = reviewWindow.rect(x, y, width, height, r);
+						tempShape.attr("fill", fill);
+						tempShape.attr("opacity", opacity);
+						break;
 				}
 				//alert(type);
 				//var title = $(this).find('title').text();
@@ -75,11 +87,10 @@ function svgshow() {
 	
 	// Creates canvases
 	debugOut("creating canvases");
-	var canvasWidth = 680; // $(window).width()-$("#ReviewWindow").offset().left-100;
-	var canvasHeight = 600; //$(window).height()-250;//$("#ReviewWindow").offset().top;
+	var canvasWidth = 680; 
+	var canvasHeight = 600; 
 	$("#viewWindow").width(canvasWidth);
 	$("#viewWindow").height(canvasHeight);
-	//reviewWindow = Raphael("ReviewWindow", "100%", "100%");
 	reviewWindow = Raphael("viewWindow", canvasWidth, canvasHeight);
 	
 	debugOut("end showsvg()");
@@ -90,20 +101,12 @@ function debugOut(msg){
 }
 
 function updateAnnotList(){
+	debugOut("updateAnnotList");
+	debugOut("clear");
 	$("#commentsList>li").remove();
-	//alert("CLEARED");
+	
+	debugOut("loop through all annots");
 	for(i=0;i<annotDetails.length;i++) {
-   		//$("#commentsList").add(annotDetails[i]);
         $('<li value="' + i + '"><span>' + annotDetails[i] + '</span></li>').appendTo('#commentsList');
 	} 
-	
-	$('#commentsList>li').click(function(){
-			var value = $(this).attr("value");
-            var element = annots[value * 1];
-            annotDetails.splice([value * 1],1);
-            annots.splice([value * 1],1);
-            element.remove();
-            //alert(element.attr('opacity'));
-            updateAnnotList();
-    });
 }
