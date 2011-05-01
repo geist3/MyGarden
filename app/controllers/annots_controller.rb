@@ -79,7 +79,7 @@ class AnnotsController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to(annots_url) }
-      format.xml  { head :ok }
+      format.xml  { render :xml => @annot }
     end
   end
 end

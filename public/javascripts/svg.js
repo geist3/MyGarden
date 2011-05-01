@@ -27,6 +27,7 @@ var hasSVGSupport = false;
 
 var annots = new Array();
 var annotDetails = new Array();
+var annotDbids = new Array();
 
 // when document ready
 $(document).ready(function() {
@@ -87,8 +88,26 @@ $(document).ready(function() {
 	// start listening for updates from server
 	loadAnnots();
 	
+	// Show menu when #myDiv is clicked
+				$("#myDiv").contextMenu({
+					menu: 'myMenu'
+				},
+					function(action, el, pos) {
+					alert(
+						'Action: ' + action + '\n\n' +
+						'Element ID: ' + $(el).attr('id') + '\n\n' + 
+						'X: ' + pos.x + '  Y: ' + pos.y + ' (relative to element)\n\n' + 
+						'X: ' + pos.docX + '  Y: ' + pos.docY+ ' (relative to document)'
+						);
+				});
+
+	
 	// bind save function to save button
 	//$("#saveButton").click(saveData);
+	
+	// add contect menu
+	//http://abeautifulsite.net/blog/2008/09/jquery-context-menu-plugin/#download
+	// 
 	
 	debugOut("ready end");
  })
@@ -102,6 +121,7 @@ function loadAnnots(){
           success: function(msg) {
             //alert( "Data gotten: " + msg );
             $(msg).find('annot').each(function(){
+				var dbid = $(this).find('id').text();
 				var props = $(this).find('props').text();
 				var shape = $(this).find('shape').text();
 				switch(shape){
@@ -115,14 +135,55 @@ function loadAnnots(){
 						var fill = propArr[4].split(":")[1];
 						var opacity = propArr[5].split(":")[1];
 						tempShape = reviewWindow.ellipse(cx, cy, rx, ry);
+						var arrayPos = annotDetails.length;
+						tempShape.attr("fill", fill);
+						tempShape.node.id="shape" + arrayPos;
+						tempShape.attr("opacity", opacity);
+						
+						annots[arrayPos] = tempShape;
+						annotDetails[arrayPos] = "circle";
+						annotDbids[arrayPos] = dbid;
+						debugOut("adding context menu");
+						$(tempShape.node).contextMenu(
+							{
+								menu: 'myMenu'
+							},
+							function(action, el, pos) {
+								var id = $(el).attr('id');
+								var i = id.replace("shape","");
+								i = i * 1;
+								var annot = annots[i];
+								deleteAnnot(annot);
+							}
+						);
+						debugOut("drawn circle");
+						break;
+					case "rect":
+						var propArr =  props.split(",");
+						debugOut("drawing svg rect");
+						var x = propArr[0].split(":")[1];
+						var y = propArr[1].split(":")[1];
+						var width = propArr[2].split(":")[1];
+						var height = propArr[3].split(":")[1];
+						var r = propArr[4].split(":")[1];
+						//var rx = propArr[5].split(":")[1];
+						//var ry = propArr[6].split(":")[1];
+						var fill = propArr[7].split(":")[1];
+						var opacity = propArr[8].split(":")[1];
+						tempShape = reviewWindow.rect(x, y, width, height, r);
 						tempShape.attr("fill", fill);
 						tempShape.attr("opacity", opacity);
 						annots[annots.length] = tempShape;
-						annotDetails[annotDetails.length] = "circle";
+						annotDetails[annotDetails.length] = "rect";
+						break;
 				}
+				
+				debugOut("drawn shape");
 				//alert(type);
 				//var title = $(this).find('title').text();
 			});
+			
+			updateAnnotList();
           }
 	});
 }
@@ -140,16 +201,32 @@ function saveData(i){
 			data += ",fill:" + annot.attr('fill');
 			data += ",opacity:" + annot.attr('opacity');
 			break;
+		case "rect":
+			var annot = annots[i];
+			data = "x:" + annot.attr('x');
+			data += ",y:" + annot.attr('y');
+			data += ",width:" + annot.attr('width');
+			data += ",height:" + annot.attr('height');
+			data += ",r:" + annot.attr('r');
+			data += ",rx:" + annot.attr('rx');
+			data += ",ry:" + annot.attr('ry');
+			data += ",fill:" + annot.attr('fill');
+			data += ",opacity:" + annot.attr('opacity');
+			break;
 	}
 	if(data.length > 0 ){
 		$.ajax({
 			  type: "POST",
 			  url: '/annots.xml',
 			  dataType: 'xml',
-			  data: { _method:'POST', annot : { shape: "circle", props: data } },
-			  dataType: 'xml',
+			  data: { _method:'POST', annot : { shape: annotDetails[i], props: data } },
 			  success: function(msg) {
 				//alert( "Data Saved: " + msg );
+				$(msg).find('annot').each(function(){
+					var dbid = $(this).find('id').text();
+					annotDbids[annotDbids.length] = dbid;
+				});
+				
 				updateAnnotList();
 			  }
 		});
@@ -245,86 +322,91 @@ function svg() {
 // http://popdevelop.com/2010/08/touching-the-web/
 // http://html5demos.com/drag
 function m_down(e) {
-	debugOut("m_down");
-	
-	debugOut("preventing default");
-	e.preventDefault(); 
+	// left button
+	if(e.which == 1){
+		debugOut("m_down");
+		
+		debugOut("preventing default");
+		e.preventDefault(); 
 
-	debugOut("getting touch coords");
-	if(hasTouchSupport){
-		var orig = e.originalEvent;
-		debugOut("e.t.l: " + orig.touches.length );
-		if(orig.touches.length == 1){	// Only deal with one finger
-			var touch = orig.touches[0]; // Get the information for finger #1
-			mouseDownX = touch.pageX;
-			mouseDownY = touch.pageY;
+		debugOut("getting touch coords");
+		if(hasTouchSupport){
+			var orig = e.originalEvent;
+			debugOut("e.t.l: " + orig.touches.length );
+			if(orig.touches.length == 1){	// Only deal with one finger
+				var touch = orig.touches[0]; // Get the information for finger #1
+				mouseDownX = touch.pageX;
+				mouseDownY = touch.pageY;
+			}
+		}else{
+			mouseDownX = e.pageX;
+			mouseDownY = e.pageY;
 		}
-	}else{
-		mouseDownX = e.pageX;
-		mouseDownY = e.pageY;
-	}
-	
-	debugOut("getting offsetcoords");
-	
-	var p = $("#ReviewWindow");
-	
-	var offset = p.offset();
-	var oLeft = offset.left;
-	var oTop = offset.top;
+		
+		debugOut("getting offsetcoords");
+		
+		var p = $("#ReviewWindow");
+		
+		var offset = p.offset();
+		var oLeft = offset.left;
+		var oTop = offset.top;
 
-	debugOut("calculating position");
-	var xPos = mouseDownX - oLeft;
-	var yPos = mouseDownY - oTop;
-	
-	if(hasSVGSupport){
-		debugOut("picking tool");
-		switch(toolType)
-		{
-			case "circle":
-				debugOut("drawing svg circle");
-				//tempShape = reviewWindow.circle(xPos, yPos, 1);
-				tempShape = reviewWindow.ellipse(xPos, yPos, 1, 1);
-				tempShape.attr("fill", "red");
-				tempShape.attr("opacity", .5);
-				annots[annots.length] = tempShape;
-				annotDetails[annotDetails.length] = "circle";
-				if(hasTouchSupport){
-					$("#ReviewWindow").bind("touchmove", m_move);
-					$("#ReviewWindow").bind("touchend", m_up);
-				}else{
-					$("#ReviewWindow").mousemove(m_move);
-					$("#ReviewWindow").mouseup(m_up);
-				}
-				break;
-			case "rect":
-				debugOut("drawing svg rect");
-				tempShape = reviewWindow.rect(xPos, yPos, 1, 1, 5);
-				tempShape.attr("fill", "blue");
-				tempShape.attr("opacity", .5);
-				annots[annots.length] = tempShape;
-				annotDetails[annotDetails.length] = "rect";
-				if(hasTouchSupport){
-					$("#ReviewWindow").bind("touchmove", m_move);
-					$("#ReviewWindow").bind("touchend", m_up);
-				}else{
-					$("#ReviewWindow").mousemove(m_move);
-					$("#ReviewWindow").mouseup(m_up);
-				}
-				break;
-			case "img":
-				debugOut("img");
-				tempShape = reviewWindow.image("../../images/rails.png", xPos, yPos, 320 / 5, 240 / 5);
-				annots[annots.length] = tempShape;
-				annotDetails[annotDetails.length] = "img";
-				updateAnnotList();
-				break;
-			default:
-				alert("Please select a tool");
-				break;
+		debugOut("calculating position");
+		var xPos = mouseDownX - oLeft;
+		var yPos = mouseDownY - oTop;
+		
+		if(hasSVGSupport){
+			debugOut("picking tool");
+			switch(toolType)
+			{
+				case "circle":
+					debugOut("drawing svg circle");
+					//tempShape = reviewWindow.circle(xPos, yPos, 1);
+					tempShape = reviewWindow.ellipse(xPos, yPos, 1, 1);
+					tempShape.attr("fill", "red");
+					tempShape.attr("opacity", .5);
+					arrayPos = annots.length;
+					annots[arrayPos] = tempShape;
+					tempShape.node.id="shape" + arrayPos;
+					annotDetails[arrayPos] = "circle";
+					if(hasTouchSupport){
+						$("#ReviewWindow").bind("touchmove", m_move);
+						$("#ReviewWindow").bind("touchend", m_up);
+					}else{
+						$("#ReviewWindow").mousemove(m_move);
+						$("#ReviewWindow").mouseup(m_up);
+					}
+					break;
+				case "rect":
+					debugOut("drawing svg rect");
+					tempShape = reviewWindow.rect(xPos, yPos, 1, 1, 5);
+					tempShape.attr("fill", "blue");
+					tempShape.attr("opacity", .5);
+					annots[annots.length] = tempShape;
+					annotDetails[annotDetails.length] = "rect";
+					if(hasTouchSupport){
+						$("#ReviewWindow").bind("touchmove", m_move);
+						$("#ReviewWindow").bind("touchend", m_up);
+					}else{
+						$("#ReviewWindow").mousemove(m_move);
+						$("#ReviewWindow").mouseup(m_up);
+					}
+					break;
+				case "img":
+					debugOut("img");
+					tempShape = reviewWindow.image("../../images/rails.png", xPos, yPos, 320 / 5, 240 / 5);
+					annots[annots.length] = tempShape;
+					annotDetails[annotDetails.length] = "img";
+					updateAnnotList();
+					break;
+				default:
+					alert("Please select a tool");
+					break;
+			}
 		}
+		
+		debugOut("end m_down");
 	}
-	
-	debugOut("end m_down");
 };
 
 function debugOut(msg){
@@ -332,106 +414,161 @@ function debugOut(msg){
 }
 
 function updateAnnotList(){
+	debugOut("updateAnnotList");
+	debugOut("clear");
 	$("#commentsList>li").remove();
-	//alert("CLEARED");
+	
+	debugOut("loop through all annots");
 	for(i=0;i<annotDetails.length;i++) {
    		//$("#commentsList").add(annotDetails[i]);
         $('<li value="' + i + '"><span>' + annotDetails[i] + '</span></li>').appendTo('#commentsList');
 	} 
 	
+	debugOut("add list click");
 	$('#commentsList>li').click(function(){
-			var value = $(this).attr("value");
-            var element = annots[value * 1];
-            annotDetails.splice([value * 1],1);
-            annots.splice([value * 1],1);
-            element.remove();
-            //alert(element.attr('opacity'));
-            updateAnnotList();
+		// delete annot
+		var value = $(this).attr("value");
+		var element = annots[value*1];
+		deleteAnnot(element);
     });
+}
+
+function deleteAnnot(element){
+	//remove from database
+	debugOut("remove from database");
+	var id = element.node.id;
+	var arraypos = id.replace("shape","");
+	arraypos = arraypos * 1;
+	var data = annotDbids[arraypos];
+	$.ajax({
+		  type: "DELETE",
+		  url: '/annots/' + data + '.xml',
+		  dataType: 'xml',
+		  data: { _method:'DELETE', id: data },
+		  success: function() {
+			updateAnnotList();
+		  }
+	});
+		
+	// remove from arrays
+	debugOut("remove from arrays");
+	annotDetails.splice(arraypos,1);
+	annots.splice(arraypos,1);
+	annotDbids.splice(arraypos,1);
+	
+	// remove from screen
+	debugOut("remove from screen");
+	element.remove();
+	
+	// remove from list
+	debugOut("call update list");
+	updateAnnotList();
 }
 
 // handle move event
 function m_move(e) {
-	debugOut("move");
-	
-	debugOut("preventing default");
-	e.preventDefault(); 
-	
-	debugOut("getting offset");
-	var p = $("#ReviewWindow");
-	
-	var offset = p.offset();
-	var oLeft = offset.left;
-	var oTop = offset.top;
+	if(e.which == 1){
+		debugOut("move");
+		
+		// prevent default move action, like page scroll
+		debugOut("preventing default");
+		e.preventDefault(); 
+		
+		// get coords original mouse down coords
+		debugOut("getting offset");
+		var p = $("#ReviewWindow");
+		
+		var offset = p.offset();
+		var oLeft = offset.left;
+		var oTop = offset.top;
 
-	debugOut("calc start click pos");
-	var xPos = mouseDownX - oLeft;
-	var yPos = mouseDownY - oTop;
-	
-	debugOut("get new click pos");
-	var rxPos = null;
-	var ryPos = null;
+		debugOut("calc start click pos");
+		var xPos = mouseDownX - oLeft;
+		var yPos = mouseDownY - oTop;
+		
+		// get new mouse/finger position
+		debugOut("get new click pos");
+		var rxPos = null;
+		var ryPos = null;
 
-	if(hasTouchSupport){
-		var orig = e.originalEvent;
-		debugOut("e.t.l: " + orig.touches.length );
-		if(orig.touches.length == 1){	// Only deal with one finger
-			var touch = orig.touches[0]; // Get the information for finger #1
-			rxPos = touch.pageX - oLeft;
-			ryPos = touch.pageY - oTop;
+		if(hasTouchSupport){
+			var orig = e.originalEvent;
+			debugOut("e.t.l: " + orig.touches.length );
+			if(orig.touches.length == 1){	// Only deal with one finger
+				var touch = orig.touches[0]; // Get the information for finger #1
+				rxPos = touch.pageX - oLeft;
+				ryPos = touch.pageY - oTop;
+			}
+		}else{
+			rxPos = e.pageX - oLeft;
+			ryPos = e.pageY - oTop;
 		}
-	}else{
-		rxPos = e.pageX - oLeft;
-		ryPos = e.pageY - oTop;
-	}
-
-	
-	var width = (rxPos - xPos);
-	var height = (ryPos - yPos);
-	/*if(width < 0){
-		width = 0 - width;
-	}
-	if(height < 0){
-		height = 0 - height;
-	}*/
-	debugOut(width + ", " + height);
-	
-	// http://raphaeljs.com/reference.html
-	// dealing with shapes
-	debugOut("dealing with shapes");
-	if(hasSVGSupport){
-		switch(toolType)
-		{
-			case "circle":
-				//tempShape.attr("r", width);
-				tempShape.attr("rx", width / 2);
-				tempShape.attr("ry", height / 2);
-				tempShape.attr("cx", xPos + (width / 2));
-				tempShape.attr("cy", yPos + (height / 2));
-				break;
-			case "rect":
-				tempShape.attr("height", height);
-				tempShape.attr("width", width);
-				break;
+		
+		// calculate drag distance
+		var width = (rxPos - xPos);
+		var height = (ryPos - yPos);
+		/*if(width < 0){
+			width = 0 - width;
+		}
+		if(height < 0){
+			height = 0 - height;
+		}*/
+		debugOut(width + ", " + height);
+		
+		// http://raphaeljs.com/reference.html
+		// dealing with shapes
+		debugOut("dealing with shapes");
+		if(hasSVGSupport){
+			switch(toolType)
+			{
+				case "circle":
+					//tempShape.attr("r", width);
+					tempShape.attr("rx", width / 2);
+					tempShape.attr("ry", height / 2);
+					tempShape.attr("cx", xPos + (width / 2));
+					tempShape.attr("cy", yPos + (height / 2));
+					break;
+				case "rect":
+					tempShape.attr("height", height);
+					tempShape.attr("width", width);
+					break;
+			}
 		}
 	}
 }
 
 // handle up event
 function m_up(e) {
-	e.preventDefault();  
-	debugOut("up");
-	
-	saveData(annots.length-1);
-
-	if(hasTouchSupport){
-		$("#ReviewWindow").unbind("touchmove", m_move);
-		$("#ReviewWindow").unbind("touchend", m_up);
+	if(e.which == 1){
+		e.preventDefault();  
+		debugOut("up");
 		
-	}else{
-		$("#ReviewWindow").unbind("mousemove", m_move);
-		$("#ReviewWindow").unbind("mouseup", m_up);
+		// save created annotation
+		saveData(annots.length-1);
+		
+		// unbind
+		if(hasTouchSupport){
+			$("#ReviewWindow").unbind("touchmove", m_move);
+			$("#ReviewWindow").unbind("touchend", m_up);
+			
+		}else{
+			$("#ReviewWindow").unbind("mousemove", m_move);
+			$("#ReviewWindow").unbind("mouseup", m_up);
+		}
+		
+		$(annots[annots.length-1].node).contextMenu(
+			{
+				menu: 'myMenu'
+			},
+			function(action, el, pos) {
+				var id = $(el).attr('id');
+				var i = id.replace("shape","");
+				i = i * 1;
+				var annot = annots[i];
+				deleteAnnot(annot);
+			}
+		);
+		
+		debugOut("finished drawing");
 	}
-	
-	debugOut("finished drawing");
 }
