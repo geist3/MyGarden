@@ -85,16 +85,16 @@ $(document).ready(function() {
     $("#accordion").accordion();
 	
 	// start listening for updates from server
-	startListening();
+	loadAnnots();
 	
 	// bind save function to save button
-	$("#saveButton").click(saveData);
+	//$("#saveButton").click(saveData);
 	
 	debugOut("ready end");
  })
 
 // start listening to server 
-function startListening(){
+function loadAnnots(){
 	$.ajax({
           type: "GET",
           url: '/annots.xml',
@@ -127,9 +127,9 @@ function startListening(){
 	});
 }
 
-function saveData(){
+function saveData(i){
 	var data = "";
-	var i = 0;
+	//var i = 0;
 	switch(annotDetails[i]){
 		case "circle":
 			var annot = annots[i];
@@ -149,7 +149,8 @@ function saveData(){
 			  data: { _method:'POST', annot : { shape: "circle", props: data } },
 			  dataType: 'xml',
 			  success: function(msg) {
-				alert( "Data Saved: " + msg );
+				//alert( "Data Saved: " + msg );
+				updateAnnotList();
 			  }
 		});
 	}
@@ -294,7 +295,6 @@ function m_down(e) {
 					$("#ReviewWindow").mousemove(m_move);
 					$("#ReviewWindow").mouseup(m_up);
 				}
-				
 				break;
 			case "rect":
 				debugOut("drawing svg rect");
@@ -421,27 +421,9 @@ function m_move(e) {
 function m_up(e) {
 	e.preventDefault();  
 	debugOut("up");
+	
+	saveData(annots.length-1);
 
-	var p = $("#ReviewWindow");
-	var offset = p.offset();
-	var oLeft = offset.left;
-	var oTop = offset.top;
-
-	var xPos = mouseDownX - oLeft;
-	var yPos = mouseDownY - oTop;
-	
-	if(hasTouchSupport){
-		var orig = e.originalEvent;
-		rxPos = orig.pageX - oLeft;
-		ryPos = orig.pageY - oTop;
-	}else{
-		rxPos = e.pageX - oLeft;
-		ryPos = e.pageY - oTop;
-	}
-	
-	var width = rxPos - xPos;
-	var height = ryPos - yPos;
-	
 	if(hasTouchSupport){
 		$("#ReviewWindow").unbind("touchmove", m_move);
 		$("#ReviewWindow").unbind("touchend", m_up);
@@ -451,6 +433,5 @@ function m_up(e) {
 		$("#ReviewWindow").unbind("mouseup", m_up);
 	}
 	
-	debugOut("finished drawing, updating annot list");
-	updateAnnotList();
+	debugOut("finished drawing");
 }
