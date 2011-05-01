@@ -18,6 +18,8 @@
   <%= simple_format(@garden.notes) %>
 </p>
 <br />
+<%= link_to 'Edit Garden Details', edit_garden_path %>
+<br />
 <h1>Plants</h1>
 <%=@garden.plants.count %> plants added to this garden:
 <% for plant in @garden.plants %>
