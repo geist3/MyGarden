@@ -1,4 +1,4 @@
-<%= link_to 'Garden', @garden %>
+<%= link_to 'Back to Garden: ' + @garden.name, @garden %>
 
 <h2>Our plants</h2>
 
@@ -14,6 +14,7 @@
     <td><%= link_to plant.name, edit_plant_path(plant) %></td>
     <td><%= plant.variety %></td>
     <td><%= simple_format(plant.notes) %></td>
+    <td><%= link_to 'Delete', plant_path(plant), :confirm => 'Are you sure?' , :method => :delete %></td>
   </tr>
 <% end %>
 </table>
@@ -23,7 +24,7 @@
 <h1>New plant</h1>
 
 <% @plant = Plant.new %>
-<% form_for(@plant) do |f| %>
+<% form_for([@garden, @plant]) do |f| %>
   <%= f.error_messages %>
 
   <p>

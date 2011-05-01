@@ -7,10 +7,11 @@
 
 <% for garden in @gardens %>
   <tr>
-    <td><%=h garden.name %></td>
-    <td><%= link_to 'Show', garden %></td>
-    <td><%= link_to 'Edit', edit_garden_path(garden) %></td>
-    <td><%= link_to 'Delete', garden, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to garden.name, garden %></td>
+    <!--<td><%=h garden.name %></td>-->
+    <!--<td><%= link_to 'Show', garden %></td>-->
+    <!--<td><%= link_to 'Edit', edit_garden_path(garden) %></td>-->
+    <!--<td><%= link_to 'Delete', garden, :confirm => 'Are you sure?', :method => :delete %></td>-->
   </tr>
 <% end %>
 </table>

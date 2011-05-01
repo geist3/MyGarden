@@ -1,12 +1,16 @@
 ActionController::Routing::Routes.draw do |map|
-  map.resources :gardens
-
   map.resources :annots
-
+  map.resources :gardens
+  
+  map.resources :plants, :only => [:destroy, :delete, :update, :show, :edit]
   map.resources :tasks, :only => [:destroy, :delete, :update, :show, :edit]
   map.resources :logentries, :only => [:destroy, :delete, :update, :show, :edit]
   #map.resources :plants, :has_many => [ :logentries ]
   #map.resources :plants
+  map.resources :gardens do |gardens|
+  	gardens.resources :plants, :only => [:create, :new, :index]
+  end
+  
   map.resources :plants do |plants|
   	plants.resources :logentries, :only => [:create, :new, :index]
   	plants.resources :tasks, :only => [:create, :new, :index]
@@ -14,6 +18,7 @@ ActionController::Routing::Routes.draw do |map|
   
   #map.root :controller => 'plants', :action => 'index'
   map.root :controller => 'gardens', :action => 'index'
+  
   # The priority is based upon order of creation: first created -> highest priority.
 
   # Sample of regular route:

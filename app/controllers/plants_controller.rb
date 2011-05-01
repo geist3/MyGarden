@@ -6,7 +6,7 @@ class PlantsController < ApplicationController
     if Garden.find(:all).count == 0
     	Garden.create
     end
-    @garden = Garden.find(:all)[0]
+    @garden = Garden.find(params[:garden_id])
   end
 
   # GET /plants/1
@@ -30,7 +30,8 @@ class PlantsController < ApplicationController
   # POST /plants
   # POST /plants.xml
   def create
-    @plant = Plant.new(params[:plant])
+    @garden = Garden.find(params[:garden_id])
+    @plant = @garden.plants.new(params[:plant])
 
       if @plant.save
         flash[:notice] = 'Plant was successfully created.'
@@ -47,7 +48,7 @@ class PlantsController < ApplicationController
 
       if @plant.update_attributes(params[:plant])
         flash[:notice] = 'Plant was successfully updated.'
-        redirect_to(:action => 'index')
+        redirect_to(garden_plants_path(@plant.garden))
       else
         render :action => "edit"
       end
@@ -57,7 +58,8 @@ class PlantsController < ApplicationController
   # DELETE /plants/1.xml
   def destroy
     @plant = Plant.find(params[:id])
+    @garden = @plant.garden
     @plant.destroy
-    redirect_to(:action => 'index')
+    redirect_to(garden_plants_path(@garden))
   end
 end

@@ -7,6 +7,8 @@
   <%= javascript_include_tag 'raphael' %>
   <%= javascript_include_tag 'svgshow' %>
 <% end %>
+<%= link_to 'Up to Garden List', gardens_path %>
+<h1>Garden Details</h1>
 <p>
   <b>Name:</b>
   <%=h @garden.name %>
@@ -15,23 +17,17 @@
   <b>Notes:</b>
   <%= simple_format(@garden.notes) %>
 </p>
-
-<table>
-  <tr>
-    <th>Name</th>
-    <th>Variety</th>
-    <th>Notes</th>
-  </tr>
-
+<br />
+<h1>Plants</h1>
+<%=@garden.plants.count %> plants added to this garden:
 <% for plant in @garden.plants %>
-  <tr>
-    <td><%= link_to plant.name, edit_plant_path(plant) %></td>
-    <td><%= plant.variety %></td>
-    <td><%= simple_format(plant.notes) %></td>
-  </tr>
+<%= plant.name %>,
 <% end %>
-</table>
-
+<br />
+<%= link_to 'Manage Plants', garden_plants_path(@garden) %>
+<br />
+<h1>Layout</h1>
+<%= link_to 'Edit layout', edit_garden_path(@garden) %>
 <div id="header"></div>
 <table id="viewTable" border="1">
 	<tr><th colspan="2">ViewWindow</th></tr>
@@ -54,5 +50,4 @@
 	<tr><td colspan="2">footer</td></tr>
 </table>
 
-<%= link_to 'Edit', edit_garden_path(@garden) %> |
-<%= link_to 'Back', gardens_path %>
+<%= link_to 'Up to Garden List', gardens_path %>
