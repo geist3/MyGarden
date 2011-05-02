@@ -135,10 +135,10 @@ function loadAnnots(){
 						var fill = propArr[4].split(":")[1];
 						var opacity = propArr[5].split(":")[1];
 						tempShape = reviewWindow.ellipse(cx, cy, rx, ry);
-						var arrayPos = annotDetails.length;
 						tempShape.attr("fill", fill);
-						tempShape.node.id="shape" + arrayPos;
 						tempShape.attr("opacity", opacity);
+						var arrayPos = annotDetails.length;
+						tempShape.node.id="shape" + dbid;
 						
 						annots[arrayPos] = tempShape;
 						annotDetails[arrayPos] = "circle";
@@ -150,10 +150,7 @@ function loadAnnots(){
 							},
 							function(action, el, pos) {
 								var id = $(el).attr('id');
-								var i = id.replace("shape","");
-								i = i * 1;
-								var annot = annots[i];
-								deleteAnnot(annot);
+								deleteAnnot(id);
 							}
 						);
 						debugOut("drawn circle");
@@ -173,8 +170,22 @@ function loadAnnots(){
 						tempShape = reviewWindow.rect(x, y, width, height, r);
 						tempShape.attr("fill", fill);
 						tempShape.attr("opacity", opacity);
-						annots[annots.length] = tempShape;
-						annotDetails[annotDetails.length] = "rect";
+						var arrayPos = annotDetails.length;
+						tempShape.node.id="shape" + dbid;
+						annots[arrayPos] = tempShape;
+						annotDetails[arrayPos] = "rect";
+						annotDbids[arrayPos] = dbid;
+						debugOut("adding context menu");
+						$(tempShape.node).contextMenu(
+							{
+								menu: 'myMenu'
+							},
+							function(action, el, pos) {
+								var id = $(el).attr('id');
+								deleteAnnot(id);
+							}
+						);
+						debugOut("drawn rect");
 						break;
 				}
 				
@@ -214,6 +225,7 @@ function saveData(i){
 			data += ",opacity:" + annot.attr('opacity');
 			break;
 	}
+	
 	if(data.length > 0 ){
 		$.ajax({
 			  type: "POST",
@@ -223,8 +235,21 @@ function saveData(i){
 			  success: function(msg) {
 				//alert( "Data Saved: " + msg );
 				$(msg).find('annot').each(function(){
+					var arrayPos = annots.length -1;
 					var dbid = $(this).find('id').text();
-					annotDbids[annotDbids.length] = dbid;
+					annotDbids[arrayPos] = dbid;
+					var tempShape = annots[arrayPos]
+					tempShape.node.id="shape" + dbid;
+					debugOut("adding context menu");
+					$(tempShape.node).contextMenu(
+						{
+							menu: 'myMenu'
+						},
+						function(action, el, pos) {
+							var id = $(el).attr('id');
+							deleteAnnot(id);
+						}
+					);
 				});
 				
 				updateAnnotList();
@@ -367,7 +392,6 @@ function m_down(e) {
 					tempShape.attr("opacity", .5);
 					arrayPos = annots.length;
 					annots[arrayPos] = tempShape;
-					tempShape.node.id="shape" + arrayPos;
 					annotDetails[arrayPos] = "circle";
 					if(hasTouchSupport){
 						$("#ReviewWindow").bind("touchmove", m_move);
@@ -382,8 +406,9 @@ function m_down(e) {
 					tempShape = reviewWindow.rect(xPos, yPos, 1, 1, 5);
 					tempShape.attr("fill", "blue");
 					tempShape.attr("opacity", .5);
-					annots[annots.length] = tempShape;
-					annotDetails[annotDetails.length] = "rect";
+					arrayPos = annots.length;
+					annots[arrayPos] = tempShape;
+					annotDetails[arrayPos] = "rect";
 					if(hasTouchSupport){
 						$("#ReviewWindow").bind("touchmove", m_move);
 						$("#ReviewWindow").bind("touchend", m_up);
@@ -397,6 +422,7 @@ function m_down(e) {
 					tempShape = reviewWindow.image("../../images/rails.png", xPos, yPos, 320 / 5, 240 / 5);
 					annots[annots.length] = tempShape;
 					annotDetails[annotDetails.length] = "img";
+					
 					updateAnnotList();
 					break;
 				default:
@@ -426,42 +452,59 @@ function updateAnnotList(){
 	debugOut("add list click");
 	$('#commentsList>li').click(function(){
 		// delete annot
-		var value = $(this).attr("value");
-		var element = annots[value*1];
-		deleteAnnot(element);
+		//var value = $(this).attr("value");
+		//var element = annots[value*1];
+		//deleteAnnot(element);
     });
 }
 
-function deleteAnnot(element){
+function GetArrayPosFromAnnotId(id){
+	var dbid = id.replace("shape","");
+	dbid = dbid * 1;
+	var arraypos = -1;
+	for(var i = 0; i < annotDbids.length; i++){
+		if(annotDbids[i] == dbid){
+			arraypos = i;
+		}
+	}
+	
+	return arraypos;
+}
+
+function deleteAnnot(id){
 	//remove from database
 	debugOut("remove from database");
-	var id = element.node.id;
-	var arraypos = id.replace("shape","");
-	arraypos = arraypos * 1;
-	var data = annotDbids[arraypos];
-	$.ajax({
-		  type: "DELETE",
-		  url: '/annots/' + data + '.xml',
-		  dataType: 'xml',
-		  data: { _method:'DELETE', id: data },
-		  success: function() {
-			updateAnnotList();
-		  }
-	});
+	var arraypos = GetArrayPosFromAnnotId(id);
+	var element = annots[arraypos];
+	
+	if(i < 0){
+		alert("couldnt find dbid " + dbid + " in list");
+	}else{
+		var data = annotDbids[arraypos];
+		$.ajax({
+			  type: "DELETE",
+			  url: '/annots/' + data + '.xml',
+			  dataType: 'xml',
+			  data: { _method:'DELETE', id: data },
+			  success: function() {
+				updateAnnotList();
+			  }
+		});
+			
+		// remove from arrays
+		debugOut("remove from arrays");
+		annotDetails.splice(arraypos,1);
+		annots.splice(arraypos,1);
+		annotDbids.splice(arraypos,1);
 		
-	// remove from arrays
-	debugOut("remove from arrays");
-	annotDetails.splice(arraypos,1);
-	annots.splice(arraypos,1);
-	annotDbids.splice(arraypos,1);
-	
-	// remove from screen
-	debugOut("remove from screen");
-	element.remove();
-	
-	// remove from list
-	debugOut("call update list");
-	updateAnnotList();
+		// remove from screen
+		debugOut("remove from screen");
+		element.remove();
+		
+		// remove from list
+		debugOut("call update list");
+		updateAnnotList();
+	}
 }
 
 // handle move event
@@ -554,19 +597,6 @@ function m_up(e) {
 			$("#ReviewWindow").unbind("mousemove", m_move);
 			$("#ReviewWindow").unbind("mouseup", m_up);
 		}
-		
-		$(annots[annots.length-1].node).contextMenu(
-			{
-				menu: 'myMenu'
-			},
-			function(action, el, pos) {
-				var id = $(el).attr('id');
-				var i = id.replace("shape","");
-				i = i * 1;
-				var annot = annots[i];
-				deleteAnnot(annot);
-			}
-		);
 		
 		debugOut("finished drawing");
 	}
